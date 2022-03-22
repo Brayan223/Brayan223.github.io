@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ClientAdmin - Administracion</title>
+    <link rel="shortcut icon" href="img/IconLogo.png"> 
+
+    <!--  Bootstrap css file  -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!--  custom css file  -->
+    <link rel="stylesheet" href="./css/stylelogin.css">
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> 
+
+    <script>
+        $(document).ready(function(){
+            $('#btn-guardar').click(function(){        
+                var name = document.getElementById("Name").value;
+                var lastname = document.getElementById("LastName").value;
+                var adress = document.getElementById("Adress").value;
+                var email = document.getElementById("Email").value;
+                var phone = document.getElementById("Phone").value;
+                var status = document.getElementById("Box1").value;
+
+                if (name == "") {
+                    swal("Oops!", "Por favor llena el campo Nombre!", "error");
+                }
+                else if (lastname == "") {
+                    swal("Oops!", "Por favor llena el campo Apellido!", "error");
+                }
+                else if (email == "") {
+                    swal("Oops!", "Por favor llena el campo Correo!", "error");
+                }  
+                else{
+                    localStorage.setItem("Nombre", name);
+                    localStorage.setItem("Apellido", lastname);
+                    localStorage.setItem("Direccion", adress);
+                    localStorage.setItem("Correo", email);
+                    localStorage.setItem("Teléfono", phone);
+                    localStorage.setItem("Estado", status);
+
+                    swal("OK!", "Cliente creado correctamente!", "success");
+                
+                    document.getElementById("Name").value = "";
+                    document.getElementById("LastName").value = "";
+                    document.getElementById("Adress").value = "";
+                    document.getElementById("Email").value = "";
+                    document.getElementById("Phone").value = "";
+                    document.getElementById("Box1").value = "Estado Civil";
+                    document.getElementById("Box2").value = "Departamento";
+                    document.getElementById("Box3").value = "Cuidad";
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <!--  ======================= Start Main Area ============================== -->
+
+    <main class="site-main">
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <a class="navbar-brand"><img src="./img/AdminLogo.gif" alt="logo"></a>
+                <div class="btn-back" id="btn-volver">
+                    <a href="index.html"><button><i class="fa fa-home"></i></button></a>
+                </div>
+                <form id="signup-form">
+                    <div class="input-register" >
+                        <h1>Crear Cliente</h1>
+                        <input id="Name" type="text" placeholder="Nombre" maxlength="70" onkeypress="return soloLetras(event)" required/>
+                        <input id="LastName" type="text" placeholder="Apellido" maxlength="70" onkeypress="return soloLetras(event)" required/>
+                        <input id="Email" type="email" placeholder="Correo" maxlength="70" required/>
+                        <input id="Adress" type="text" placeholder="Direccion" maxlength="70"/><br>
+                        <input id="Phone" type="phone" placeholder="Teléfono" onkeypress="return soloNumeros(event)" maxlength="10" /><br>
+                        <select class="form-select1" aria-label="Default select example" id="Box1">
+                            <option selected>Estado Civil</option>
+                            <option value="1">Soltero</option>
+                            <option value="2">Casado</option>
+                            <option value="3">Viudo</option>
+                            <option value="4">Divorciado</option>
+                        </select>
+                        <select class="form-select2" aria-label="Default select example" id="Box2">
+                            <option selected>Departamento</option>
+                            <option value="1">Antioquia</option>
+                            <option value="2">Arauca</option>
+                            <option value="3">Atlántico</option>
+                            <option value="4">Caquetá</option>
+                            <option value="5">Casanare</option>
+                            <option value="6">Cauca</option>
+                            <option value="7">Guaviare</option>
+                        </select><br>
+                        <select class="form-select3" aria-label="Default select example" id="Box3">
+                            <option selected>Cuidad</option>
+                            <option value="1">Medellin</option>
+                            <option value="2">Bogota</option>
+                            <option value="3">Barranquilla</option>
+                            <option value="4">Cali</option>
+                            <option value="5">Manizales</option>
+                            <option value="6">Rionegro</option>
+                            <option value="7">Bucaramanga</option>
+                        </select><br>
+                        <div class="btn-register" id="btn-guardar">
+                            <button><i class="fa fa-user-plus"></i> Crear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!--  ======================= End Main Area ================================ -->
+
+    <script>
+        function soloLetras(e) {
+          var key = e.keyCode || e.which,
+            tecla = String.fromCharCode(key).toLowerCase(),
+            letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
+            especiales = [],
+            tecla_especial = false;
+      
+          for (var i in especiales) {
+            if (key == especiales[i]) {
+              tecla_especial = true;
+              break;
+            }
+          }
+      
+          if (letras.indexOf(tecla) == -1 && !tecla_especial) {
+            return false;
+          }
+        }
+    </script>
+
+    <script>
+    function soloNumeros(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = "0123456789";
+        especiales = [];
+    
+        tecla_especial = false
+        for(var i in especiales) {
+            if(key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+    
+        if(letras.indexOf(tecla) == -1 && !tecla_especial){
+            return false;
+        }   
+    }
+    </script>
+</body>
+</html>
